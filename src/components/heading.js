@@ -1,15 +1,32 @@
-import { LoginOutlined } from "@ant-design/icons";
-import { Button, Col, Row } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import { Col, Dropdown, Menu, Row } from "antd";
 import Search from "antd/lib/input/Search";
+import axios from "axios";
 import React from "react";
-import useUtilites from "../hooks/useUtilites";
+import useAuth from "../hooks/useAuth";
+import useData from "../hooks/useData";
 
 const Heading = () => {
-	const { movieData } = useUtilites();
-	console.log(movieData);
-	const handleSearch = (e) => {
-		console.log(e);
+	const { setMovieData, setLoading } = useData();
+	const { user, logOut } = useAuth();
+
+	const handleSearch = (title) => {
+		setLoading(true);
+		axios.get(`${process.env.REACT_APP_API_URL}&t=${title}`).then((res) => {
+			setMovieData(res.data);
+			setLoading(false);
+		});
 	};
+
+	const menu = (
+		<Menu>
+			<Menu.Item key={1}>My PlayList</Menu.Item>
+
+			<Menu.Item key={2} danger>
+				<span onClick={logOut}>LogOut</span>
+			</Menu.Item>
+		</Menu>
+	);
 	return (
 		<div className="container mx-auto">
 			<Row gutter={16} align="middle" justify="space-between">
@@ -21,8 +38,7 @@ const Heading = () => {
 
 				<Col>
 					<Search
-						placeholder="input search text"
-						allowClear
+						placeholder="Search movie name"
 						onSearch={handleSearch}
 						enterButton
 						className="mt-4"
@@ -30,9 +46,11 @@ const Heading = () => {
 				</Col>
 
 				<Col>
-					<Button type="primary" icon={<LoginOutlined />}>
-						Login
-					</Button>
+					<Dropdown overlay={menu}>
+						<a onClick={(e) => e.preventDefault()} href=" ">
+							{user.displayName} <DownOutlined />
+						</a>
+					</Dropdown>
 				</Col>
 			</Row>
 		</div>

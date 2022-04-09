@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.less";
+import PrivateRoute from "./components/privateRoute";
 import AuthProvider from "./context/AuthProvider";
 import UtilitiesProvider from "./context/UtilitiesProvider";
 import Login from "./pages/Auth/Login";
@@ -13,7 +14,14 @@ function App() {
 				<UtilitiesProvider>
 					<BrowserRouter>
 						<Routes>
-							<Route path="/" element={<Home />} />
+							<Route
+								path="/"
+								element={
+									<PrivateRoute>
+										<Home />{" "}
+									</PrivateRoute>
+								}
+							/>
 							<Route path="/auth/login" element={<Login />} />
 							<Route
 								path="/auth/register"
