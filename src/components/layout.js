@@ -11,7 +11,10 @@ const HomeLayout = ({ children }) => {
 				<Heading />
 			</Header>
 
-			<Content className="container mx-auto" style={{ marginTop: 64 }}>
+			<Content
+				className="container mx-auto px-5"
+				style={{ marginTop: 64 }}
+			>
 				<div style={{ minHeight: "85vh" }}>{children}</div>
 			</Content>
 
