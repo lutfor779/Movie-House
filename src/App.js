@@ -1,26 +1,22 @@
-import { Button, Input, Menu } from "antd";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.less";
-import HomeLayout from "./components/layout";
-
-const { SubMenu } = Menu;
-
-const { Search } = Input;
+import AuthProvider from "./context/AuthProvider";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import Home from "./pages/Home";
 
 function App() {
 	return (
 		<div className="App">
-			<HomeLayout>
-				<Button type="primary">Button</Button>
-				<Search
-					placeholder="input search text"
-					allowClear
-					onSearch={(e) => console.log(e)}
-					enterButton
-				/>
-				<p className="bg-red-100 text-xl font-bold">
-					Hello this is from tailwindcss
-				</p>
-			</HomeLayout>
+			<AuthProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/auth/login" element={<Login />} />
+						<Route path="/auth/register" element={<Register />} />
+					</Routes>
+				</BrowserRouter>
+			</AuthProvider>
 		</div>
 	);
 }
