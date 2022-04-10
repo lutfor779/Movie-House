@@ -16,7 +16,7 @@ const HomeContent = () => {
 		dots: false,
 		infinite: true,
 		slidesToShow: 4,
-		slidesToScroll: 2,
+		slidesToScroll: 1,
 		swipeToSlide: true,
 		autoplay: true,
 		speed: 2000,
