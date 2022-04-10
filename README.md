@@ -11,8 +11,8 @@
 Try this after cloning this repo:
 
 ```
-npm i
-npm start
+yarn install
+yarn start
 ```
 
 ### Deployment
