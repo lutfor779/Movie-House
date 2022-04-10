@@ -62,10 +62,12 @@ const MyPlaylists = () => {
 	};
 
 	return (
-		<div className="pt-5">
-			<h1 id="myPlaylist">My Playlist</h1>
+		<div className="pt-5 text-white">
+			<h1 id="myPlaylist" className="text-white text-xl">
+				My Playlist
+			</h1>
 			<div className="my-5">
-				{myPlayList.length > 0 ? (
+				{myPlayList?.length > 0 ? (
 					<Slider {...settings}>
 						{myPlayList.map((item) => (
 							<div key={item._id}>

@@ -79,7 +79,7 @@ const Heading = () => {
 				visible={open}
 				width={280}
 			>
-				<div className="h-full grid grid-cols-1 gap-4 content-between">
+				<div className="h-full grid grid-cols-1 gap-4 content-between bg-color py-5">
 					<div>
 						<Search
 							placeholder="Search movie name"
@@ -87,7 +87,7 @@ const Heading = () => {
 							enterButton
 							className="mb-5"
 						/>
-						<Menu>
+						<Menu theme="dark">
 							<Menu.Item key={1}>
 								<a
 									href="#myPlaylist"
@@ -101,6 +101,7 @@ const Heading = () => {
 					<div>
 						<Button
 							type="primary"
+							block
 							onClick={logOut}
 							icon={<LogoutOutlined />}
 						>

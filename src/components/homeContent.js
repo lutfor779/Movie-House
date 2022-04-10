@@ -56,7 +56,7 @@ const HomeContent = () => {
 
 	return (
 		<div className="my-8">
-			<h1>Some Collections</h1>
+			<h1 className="text-white text-xl">Some Collections</h1>
 			<Slider {...settings}>
 				{uniquePlayLists.map((item) => (
 					<div key={item._id}>
