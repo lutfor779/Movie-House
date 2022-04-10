@@ -4,12 +4,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import HomeContent from "../../components/homeContent";
 import HomeLayout from "../../components/layout";
+import MyPlaylists from "../../components/myPlaylists";
 import useAuth from "../../hooks/useAuth";
 import useData from "../../hooks/useData";
 
 const Home = () => {
-	const { movieData, setMyPlayList, alreadyAdded, setAlreadyAdded } =
-		useData();
+	const { movieData, myPlayList, alreadyAdded, setAlreadyAdded } = useData();
 	const { user } = useAuth();
 	const [data, setData] = useState(null);
 
@@ -25,36 +25,31 @@ const Home = () => {
 		} else setData(movieData);
 
 		if (movieData?.Title) {
-			axios
-				.get(
-					"https://boiling-springs-44952.herokuapp.com/movie_house_playLists",
-					{
-						params: {
-							email: user.email,
-						},
-					}
-				)
-				.then((res) => {
-					setMyPlayList(res.data);
-					const result = res.data.find(
-						(item) => item.Title === movieData.Title
-					);
+			if (myPlayList) {
+				const result = myPlayList.find(
+					(item) => item.Title === movieData.Title
+				);
 
-					if (result) {
-						setAlreadyAdded(true);
-					} else {
-						setAlreadyAdded(false);
-					}
-				});
+				if (result) {
+					setAlreadyAdded(true);
+				} else {
+					setAlreadyAdded(false);
+				}
+			}
+		} else {
+			setAlreadyAdded(false);
 		}
 	}, [movieData, user.email]);
 
 	const handlePlaylist = () => {
 		axios
-			.post("http://localhost:5000/movie_house_playLists", {
-				...data,
-				email: user.email,
-			})
+			.post(
+				"https://boiling-springs-44952.herokuapp.com/movie_house_playLists",
+				{
+					...data,
+					email: user.email,
+				}
+			)
 			.then((res) => {
 				if (res.data.insertedId) {
 					message.success("Added to playlist");
@@ -68,6 +63,7 @@ const Home = () => {
 
 	return (
 		<HomeLayout>
+			{/* search data */}
 			{data && (
 				<Row gutter={[16, 16]} justify="center" className="mt-5">
 					<Col xs={24} sm={20} md={10} lg={8} xl={6}>
@@ -110,7 +106,9 @@ const Home = () => {
 					</Col>
 				</Row>
 			)}
+			{/* playlists */}
 			<HomeContent />
+			<MyPlaylists />
 		</HomeLayout>
 	);
 };

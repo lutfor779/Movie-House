@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useAuth from "./useAuth";
 
 const useUtilites = () => {
+	const { user } = useAuth();
 	const [movieData, setMovieData] = useState(null);
 	const [myPlayList, setMyPlayList] = useState(null);
 	const [playLists, setPlayLists] = useState([]);
+	const [uniquePlayLists, setUniquePlayLists] = useState([]);
 	const [alreadyAdded, setAlreadyAdded] = useState(false);
 	const [loading, setLoading] = useState(false);
 
@@ -15,6 +18,21 @@ const useUtilites = () => {
 			)
 			.then((res) => setPlayLists(res.data));
 	}, []);
+
+	useEffect(() => {
+		axios
+			.get(
+				"https://boiling-springs-44952.herokuapp.com/movie_house_playLists",
+				{
+					params: {
+						email: user.email,
+					},
+				}
+			)
+			.then((res) => {
+				setMyPlayList(res.data);
+			});
+	}, [myPlayList, user.email]);
 
 	return {
 		movieData,
@@ -27,6 +45,8 @@ const useUtilites = () => {
 		setPlayLists,
 		alreadyAdded,
 		setAlreadyAdded,
+		uniquePlayLists,
+		setUniquePlayLists,
 	};
 };
 

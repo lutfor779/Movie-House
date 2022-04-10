@@ -14,7 +14,7 @@ const Heading = () => {
 	const navigate = useNavigate();
 
 	const handleSearch = (title) => {
-		setOpen(!open);
+		setOpen(false);
 		setLoading(true);
 		axios.get(`${process.env.REACT_APP_API_URL}&t=${title}`).then((res) => {
 			setMovieData(res.data);
@@ -24,7 +24,9 @@ const Heading = () => {
 
 	const menu = (
 		<Menu>
-			<Menu.Item key={1}>My PlayList</Menu.Item>
+			<Menu.Item key={1}>
+				<a href="#myPlaylist">My PlayList</a>
+			</Menu.Item>
 
 			<Menu.Item key={2} danger>
 				<span onClick={logOut}>LogOut</span>
@@ -33,6 +35,7 @@ const Heading = () => {
 	);
 	return (
 		<div className="container mx-auto">
+			{/* header */}
 			<Row align="middle" justify="space-between">
 				<Col className="text-xl font-bold text-orange-400">
 					<div
@@ -82,8 +85,18 @@ const Heading = () => {
 							placeholder="Search movie name"
 							onSearch={handleSearch}
 							enterButton
+							className="mb-5"
 						/>
-						<p className="mt-5">My Playlists</p>
+						<Menu>
+							<Menu.Item key={1}>
+								<a
+									href="#myPlaylist"
+									onClick={() => setOpen(false)}
+								>
+									My PlayList
+								</a>
+							</Menu.Item>
+						</Menu>
 					</div>
 					<div>
 						<Button

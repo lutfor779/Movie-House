@@ -1,15 +1,23 @@
 import { Image } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import useData from "../hooks/useData";
 
 const HomeContent = () => {
-	const { playLists } = useData();
+	const { playLists, uniquePlayLists, setUniquePlayLists } = useData();
+
+	useEffect(() => {
+		setUniquePlayLists([
+			...new Map(playLists.map((item) => [item.Title, item])).values(),
+		]);
+	}, [playLists]);
+
 	const settings = {
 		dots: false,
 		infinite: true,
 		slidesToShow: 4,
-		slidesToScroll: 1,
+		slidesToScroll: 2,
+		swipeToSlide: true,
 		autoplay: true,
 		speed: 2000,
 		autoplaySpeed: 2000,
@@ -50,7 +58,7 @@ const HomeContent = () => {
 		<div className="my-8">
 			<h1>Some Collections</h1>
 			<Slider {...settings}>
-				{playLists.map((item) => (
+				{uniquePlayLists.map((item) => (
 					<div key={item._id}>
 						<Image src={item.Poster} height={350} preview={false} />
 					</div>
