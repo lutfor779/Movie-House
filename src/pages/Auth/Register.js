@@ -29,7 +29,25 @@ const Register = () => {
 	};
 	return (
 		<div>
-			{isLoading && <Spin />}
+			{isLoading && (
+				<Row
+					justify="center"
+					align="middle"
+					style={{ height: "100vh" }}
+				>
+					<Col
+						xs={22}
+						sm={18}
+						md={12}
+						lg={10}
+						xl={10}
+						xxl={8}
+						className="text-center"
+					>
+						<Spin size="large" />
+					</Col>
+				</Row>
+			)}
 			<Row
 				justify="space-around"
 				align="middle"

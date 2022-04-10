@@ -6,6 +6,7 @@ import UtilitiesProvider from "./context/UtilitiesProvider";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 								path="/auth/register"
 								element={<Register />}
 							/>
+							<Route path="*" element={<NotFound />} />
 						</Routes>
 					</BrowserRouter>
 				</UtilitiesProvider>
