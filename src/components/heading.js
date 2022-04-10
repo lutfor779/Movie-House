@@ -8,17 +8,15 @@ import useAuth from "../hooks/useAuth";
 import useData from "../hooks/useData";
 
 const Heading = () => {
-	const { setMovieData, setLoading } = useData();
+	const { setMovieData } = useData();
 	const { user, logOut } = useAuth();
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 
 	const handleSearch = (title) => {
 		setOpen(false);
-		setLoading(true);
 		axios.get(`${process.env.REACT_APP_API_URL}&t=${title}`).then((res) => {
 			setMovieData(res.data);
-			setLoading(false);
 		});
 	};
 

@@ -116,7 +116,6 @@ const Home = () => {
 						<p>Description: {data.Plot}</p>
 
 						{alreadyAdded ? (
-							// <HeartFilled className="text-2xl text-red-500" />
 							<HeartIcon
 								style={{ color: "hotpink" }}
 								className="text-2xl"

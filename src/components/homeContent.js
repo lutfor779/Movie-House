@@ -1,10 +1,11 @@
-import { Image } from "antd";
+import { Image, Spin } from "antd";
 import React, { useEffect } from "react";
 import Slider from "react-slick";
 import useData from "../hooks/useData";
 
 const HomeContent = () => {
-	const { playLists, uniquePlayLists, setUniquePlayLists } = useData();
+	const { loading, playLists, uniquePlayLists, setUniquePlayLists } =
+		useData();
 
 	useEffect(() => {
 		setUniquePlayLists([
@@ -57,6 +58,7 @@ const HomeContent = () => {
 	return (
 		<div className="my-8">
 			<h1 className="text-white text-xl">Some Collections</h1>
+			{loading && <Spin size="large" />}
 			<Slider {...settings}>
 				{uniquePlayLists.map((item) => (
 					<div key={item._id}>

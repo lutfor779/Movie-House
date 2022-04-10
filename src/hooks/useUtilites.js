@@ -12,11 +12,16 @@ const useUtilites = () => {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+		setLoading(true);
 		axios
 			.get(
 				"https://boiling-springs-44952.herokuapp.com/movie_house_playLists"
 			)
-			.then((res) => setPlayLists(res.data));
+			.then((res) => {
+				setPlayLists(res.data);
+				setLoading(false);
+			})
+			.catch(() => setLoading(false));
 	}, []);
 
 	useEffect(() => {
